@@ -15,7 +15,7 @@ public class AccountRepository {
     public Account getAccount(String id) {
 
         for (Account account : accounts) {
-            if (account.id().equals(id)) {
+            if (account.getId().equals(id)) {
                 return account;
             }
         }
@@ -24,7 +24,7 @@ public class AccountRepository {
 
     public void deleteAccount(String id) {
         for (Account account : accounts) {
-            if (account.id().equals(id)) {
+            if (account.getId().equals(id)) {
                 accounts.remove(account);
                 return;
             }
