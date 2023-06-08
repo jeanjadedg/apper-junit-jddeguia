@@ -16,7 +16,7 @@ public class AccountRepositoryTest {
 
         // Verify
         Assertions.assertEquals(1, repository.getNumberOfAccounts());
-        Assertions.assertEquals("JD", repository.getAccount(accountId).name());
+        Assertions.assertEquals("JD", repository.getAccount(accountId).getName());
         Assertions.assertNotNull(accountId);
     }
 
@@ -26,9 +26,9 @@ public class AccountRepositoryTest {
 
         String accountId = repository.createAccount("JD", 89.9);
 
-        Assertions.assertEquals("JD", repository.getAccount(accountId).name());
-        Assertions.assertEquals(89.9, repository.getAccount(accountId).balance());
-        Assertions.assertEquals(null, repository.getAccount("randomid"));
+        Assertions.assertEquals("JD", repository.getAccount(accountId).getName());
+        Assertions.assertEquals(89.9, repository.getAccount(accountId).getBalance());
+        Assertions.assertEquals(null, repository.getAccount("randomized"));
 
     }
 
@@ -48,13 +48,12 @@ public class AccountRepositoryTest {
         AccountRepository repository = new AccountRepository();
 
         String accountId0 = repository.createAccount("JD", 89.9);
-        String accountId1 = repository.createAccount("JD", 89.9);
-        String accountId2 = repository.createAccount("JD", 89.9);
-        String accountId3 = repository.createAccount("JD", 89.9);
-        String accountId4 = repository.createAccount("JD", 89.9);
+        String accountId1 = repository.createAccount("JD1", 89.9);
+        String accountId2 = repository.createAccount("JD2", 89.9);
+        String accountId3 = repository.createAccount("JD3", 89.9);
+        String accountId4 = repository.createAccount("JD4", 89.9);
 
         Assertions.assertEquals(5, repository.getNumberOfAccounts());
 
     }
-
 }

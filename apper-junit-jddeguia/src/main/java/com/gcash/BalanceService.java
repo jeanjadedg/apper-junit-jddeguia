@@ -22,14 +22,7 @@ public class BalanceService {
             if (currentBalance >= account.getBalance()) {
                 account.setBalance(currentBalance - amount);
             }
-            else {
-                System.out.println("Insufficient Balance.");
-            }
         }
-        else {
-            System.out.println("Account not found.");
-        }
-
     }
 
     public void credit(String id, Double amount) {
@@ -38,9 +31,6 @@ public class BalanceService {
         if (account != null) {
             Double currentBalance = account.getBalance();
             account.setBalance(currentBalance + amount);
-        }
-        else {
-            System.out.println("Account not found.");
         }
     }
 
@@ -55,12 +45,6 @@ public class BalanceService {
                 senderAccount.setBalance(senderBalance - amount);
                 receiverAccount.setBalance(receiverAccount.getBalance() + amount);
             }
-            else {
-                System.out.println("Insufficient balance");
-            }
-        }
-        else {
-            System.out.println("Account not found.");
         }
     }
 }
