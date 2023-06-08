@@ -20,10 +20,6 @@ public class Account {
         return name;
     }
 
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
     public Double getBalance() {
         return balance;
     }

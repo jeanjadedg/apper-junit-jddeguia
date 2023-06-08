@@ -12,7 +12,9 @@ public class BalanceService {
         if (account != null) {
             return account.getBalance();
         }
-        return null;
+        else {
+            return null;
+        }
     }
 
     public void debit(String id, Double amount) {
