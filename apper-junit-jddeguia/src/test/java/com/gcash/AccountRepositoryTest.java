@@ -36,10 +36,16 @@ public class AccountRepositoryTest {
     void successfulDeleteAccount() {
         AccountRepository repository = new AccountRepository();
 
-        String id = repository.createAccount("JD", 89.9);
+        String accountId1 = repository.createAccount("JD1", 100.0);
+        String accountId2 = repository.createAccount("JD2", 200.0);
 
-        repository.deleteAccount(id);
+        repository.deleteAccount(accountId1);
+        Assertions.assertEquals(1, repository.getNumberOfAccounts());
 
+        repository.deleteAccount(accountId2);
+        Assertions.assertEquals(0, repository.getNumberOfAccounts());
+
+        repository.deleteAccount("nonExistingId");
         Assertions.assertEquals(0, repository.getNumberOfAccounts());
     }
 
@@ -54,6 +60,10 @@ public class AccountRepositoryTest {
         String accountId4 = repository.createAccount("JD4", 89.9);
 
         Assertions.assertEquals(5, repository.getNumberOfAccounts());
+
+        repository.deleteAccount(accountId0);
+
+        Assertions.assertEquals(4, repository.getNumberOfAccounts());
 
     }
 }

@@ -13,9 +13,11 @@ public class BalanceServiceTest {
         balanceService = new BalanceService(accountRepository);
 
         String accountId0 = accountRepository.createAccount("JD", 89.9);
+        String notExistingId = "non-existing";
 
         Assertions.assertEquals(89.9, balanceService.getBalance(accountId0));
-        Assertions.assertNotNull(accountId0);
+        Assertions.assertNotNull(balanceService.getBalance(accountId0));
+        Assertions.assertNull(balanceService.getBalance(notExistingId));
     }
 
     @Test
