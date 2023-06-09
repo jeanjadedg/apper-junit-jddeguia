@@ -66,4 +66,15 @@ public class AccountRepositoryTest {
         Assertions.assertEquals(4, repository.getNumberOfAccounts());
 
     }
+
+    @Test
+    void isAccountsEmpty() {
+        AccountRepository repository = new AccountRepository();
+
+        Assertions.assertTrue(repository.noRegisteredAccount());
+
+        String accountId0 = repository.createAccount("JD", 89.9);
+        Assertions.assertFalse(repository.noRegisteredAccount());
+
+    }
 }
