@@ -37,16 +37,11 @@ public class BalanceService {
     }
 
     public void transfer(String from, String to, Double amount) {
-
         Account senderAccount = accountRepository.getAccount(from);
-        Account receiverAccount = accountRepository.getAccount(to);
 
-        if (senderAccount != null && receiverAccount != null) {
-            Double senderBalance = senderAccount.getBalance();
-            if (senderBalance >= amount) {
-                senderAccount.setBalance(senderBalance - amount);
-                receiverAccount.setBalance(receiverAccount.getBalance() + amount);
-            }
+        if (from != null && to != null && senderAccount.getBalance() > amount) {
+            debit(from, amount);
+            credit(to, amount);
         }
     }
 }
