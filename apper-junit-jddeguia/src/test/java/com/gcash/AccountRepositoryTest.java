@@ -2,15 +2,18 @@ package com.gcash;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AccountRepositoryTest {
+    private AccountRepository repository;
 
+    @BeforeEach
+    void setUp() {
+        repository = new AccountRepository();
+    }
     @Test
     void successfulAccountCreation() {
-        // Setup
-        AccountRepository repository = new AccountRepository();
-
         // Kick
         String accountId = repository.createAccount("JD", 89.9);
 
@@ -22,7 +25,6 @@ public class AccountRepositoryTest {
 
     @Test
     void getAccountTest() {
-        AccountRepository repository = new AccountRepository();
 
         String accountId = repository.createAccount("JD", 89.9);
 
@@ -34,7 +36,6 @@ public class AccountRepositoryTest {
 
     @Test
     void successfulDeleteAccount() {
-        AccountRepository repository = new AccountRepository();
 
         String accountId1 = repository.createAccount("JD1", 100.0);
         String accountId2 = repository.createAccount("JD2", 200.0);
@@ -51,7 +52,6 @@ public class AccountRepositoryTest {
 
     @Test
     void successfulGetNumberAccounts() {
-        AccountRepository repository = new AccountRepository();
 
         String accountId0 = repository.createAccount("JD", 89.9);
         String accountId1 = repository.createAccount("JD1", 89.9);
@@ -69,7 +69,6 @@ public class AccountRepositoryTest {
 
     @Test
     void isAccountsEmpty() {
-        AccountRepository repository = new AccountRepository();
 
         Assertions.assertTrue(repository.noRegisteredAccount());
 
