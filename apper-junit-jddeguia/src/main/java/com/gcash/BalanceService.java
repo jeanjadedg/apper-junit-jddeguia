@@ -1,5 +1,7 @@
 package com.gcash;
 
+import javax.security.auth.login.AccountNotFoundException;
+
 public class BalanceService {
     private final AccountRepository accountRepository;
 
@@ -7,23 +9,25 @@ public class BalanceService {
         this.accountRepository = accountRepository;
     }
 
-    public Double getBalance(String id) {
+    public Double getBalance(String id) throws AccountNotFoundException {
         Account account = accountRepository.getAccount(id);
         if (account != null) {
             return account.getBalance();
         }
         else {
-            return null;
+            throw new AccountNotFoundException("Account " + id + " not found.");
         }
     }
 
-    public void debit(String id, Double amount) {
+    public void debit(String id, Double amount) throws AccountNotFoundException {
         Account account = accountRepository.getAccount(id);
         if (account != null) {
             Double currentBalance = account.getBalance();
             if (currentBalance >= account.getBalance()) {
                 account.setBalance(currentBalance - amount);
             }
+        } else {
+            throw new AccountNotFoundException("Account " + id + " not found.");
         }
     }
 
@@ -36,7 +40,7 @@ public class BalanceService {
         }
     }
 
-    public void transfer(String from, String to, Double amount) {
+    public void transfer(String from, String to, Double amount) throws AccountNotFoundException {
         Account senderAccount = accountRepository.getAccount(from);
 
         if (from != null && to != null && senderAccount.getBalance() > amount) {

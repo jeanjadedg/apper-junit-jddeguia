@@ -2,13 +2,16 @@ package com.gcash;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 public class BalanceServiceTest {
     private BalanceService balanceService;
     private AccountRepository accountRepository;
 
     @Test
-    void getBalanceTest() {
+    void getBalanceTest() throws AccountNotFoundException {
         accountRepository = new AccountRepository();
         balanceService = new BalanceService(accountRepository);
 
@@ -17,23 +20,26 @@ public class BalanceServiceTest {
 
         Assertions.assertEquals(89.9, balanceService.getBalance(accountId0));
         Assertions.assertNotNull(balanceService.getBalance(accountId0));
-        Assertions.assertNull(balanceService.getBalance(notExistingId));
+        Assertions.assertThrows(AccountNotFoundException.class, () -> balanceService.getBalance(notExistingId));
     }
 
     @Test
-    void successfulDebit() {
+    void successfulDebit() throws AccountNotFoundException {
         accountRepository = new AccountRepository();
         balanceService = new BalanceService(accountRepository);
 
         String accountId1 = accountRepository.createAccount("JD", 90.0);
 
+        String notExistingId = "non-existing";
+
         balanceService.debit(accountId1,40.0);
 
         Assertions.assertEquals(50.0, balanceService.getBalance(accountId1));
+        Assertions.assertThrows(AccountNotFoundException.class, () -> balanceService.getBalance(notExistingId));
     }
 
     @Test
-    void successfulCredit() {
+    void successfulCredit() throws AccountNotFoundException {
         accountRepository = new AccountRepository();
         balanceService = new BalanceService(accountRepository);
 
@@ -45,7 +51,7 @@ public class BalanceServiceTest {
     }
 
     @Test
-    void successfulTransfer() {
+    void successfulTransfer() throws AccountNotFoundException {
         accountRepository = new AccountRepository();
         balanceService = new BalanceService(accountRepository);
 
